@@ -27,12 +27,15 @@ func NuevoCodigo(c string) codigo {
 }
 
 /*
- * imprime por patalla el código contenido
+ * Imprimir imprime por patalla el código contenido
  */
 func (c *codigo) Imprimir() {
 	fmt.Println(c.contenido)
 }
 
+/*
+ * Formatear en caso de ser un string válido le dá un formato definido y lo devuelve
+ */
 func (c *codigo) Formatear() Resultado {
 	if valido, err := c.contieneCaracteresValidos(); err != nil || valido == false {
 		panic("El código ingresado no es válido")
@@ -50,7 +53,7 @@ func (c *codigo) Formatear() Resultado {
  * contieneCaracteresValidos verifica que el string contenga caracteres válidos
  */
 func (c *codigo) contieneCaracteresValidos() (bool, error) {
-	caracteresValidos := regexp.MustCompile(`^[A-Z0-9]+$`)
+	caracteresValidos := regexp.MustCompile(`^[A-Z0-9]+$`) //suponiendo que deba tener sólo mayúsculas
 	resultadoComparacion := caracteresValidos.MatchString(c.contenido)
 	if resultadoComparacion == false {
 		return false, errors.New("El código ingresado no es válido")

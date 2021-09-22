@@ -31,11 +31,12 @@ Las funciones existentes en el módulo son las siguientes:
 - `obtenerLargo()` : decodigovuelve la cantidad de caracteres que deberá tener el código. Es privada ya que la funcion que lo utiliza está en el módulo
 - `obtenerValor(cantidad int)` : reci"regexp"be la cantidad de caracteres que deberá tener el valor del código resultante y lo devuelve. Es privada ya que la funcion que lo utiliza está en el módulo
 
-En cada una de las funciones privadas específicas se accede a los sectores del string pasandole los indices de inicio y fin para cada sección.
+En cada una de las funciones privadas específicas de obtención se accede a los sectores del string pasandole los índices de inicio y fin para cada sección.
 
-Para la resolución de este TP se debieron usar los paquetes `"strconv"`, para convertir el string del largo del contenido a un int, `"fmt"` para hacer las impresiones en consola, `"regexp"` para simplificar la comparación del string ingresado con un conjunto de caracteres dados
+Para la resolución de este TP se debieron usar los paquetes `"strconv"`, para convertir el string del largo del contenido a un int, `"fmt"` para hacer las impresiones en consola, `"regexp"` para simplificar la comparación del string ingresado con un conjunto de caracteres dados, `"testing"` y `"github.com/stretchr/testify/assert"` para realizar los testeos de unidad.
 
-
+En el test unitario lo que se hace es tomar una función que se quiera probar, creamos los datos necesarios y preparamos los resultados de deben dar, se la hace correr y luego se comparan los resultados obtenidos con los que se deberían obtener.
+Para este TP se espera una cobertura del 80% o más.
 
 ## Autora :writing_hand: :
 **Evelyn Vega** [EvelynVega](https://github.com/Evynith)
