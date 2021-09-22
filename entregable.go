@@ -1,7 +1,19 @@
 package main
 
-import "fmt"
+import (
+	"entregable/codigo"
+	"fmt"
+)
 
 func main() {
-	fmt.Printf("hello,world\n")
+
+	//codigo := codigo.NuevoCodigo("NN040001")
+	//codigo := codigo.NuevoCodigo("TX03ABC")
+	codigo := codigo.NuevoCodigo("TX03ABC")
+	codigo.Imprimir()
+	codigoResultante := codigo.Formatear()
+	fmt.Println(codigoResultante)
+
 }
+
+//go run entregable.go
