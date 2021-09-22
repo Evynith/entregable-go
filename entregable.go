@@ -9,9 +9,15 @@ func main() {
 
 	//codigo := codigo.NuevoCodigo("NN040001")
 	//codigo := codigo.NuevoCodigo("TX03ABC")
-	codigo := codigo.NuevoCodigo("TX03ABC")
+	//codigo := codigo.NuevoCodigo("NN100987654321")
+	//codigo := codigo.NuevoCodigo("TX02AB")
+	//codigo := codigo.NuevoCodigo("TX06ABCDE")
+	codigo := codigo.NuevoCodigo("NN04000A")
 	codigo.Imprimir()
-	codigoResultante := codigo.Formatear()
+	codigoResultante, err := codigo.Formatear()
+	if err != nil {
+		panic(err)
+	}
 	fmt.Println(codigoResultante)
 
 }

@@ -36,17 +36,23 @@ func (c *codigo) Imprimir() {
 /*
  * Formatear en caso de ser un string válido le dá un formato definido y lo devuelve
  */
-func (c *codigo) Formatear() Resultado {
+func (c *codigo) Formatear() (Resultado, error) {
 	if valido, err := c.contieneCaracteresValidos(); err != nil || valido == false {
-		panic("El código ingresado no es válido")
+		return Resultado{}, err
 	}
-	tipo := c.obtenerTipo()
+	tipo, err := c.obtenerTipo()
+	if err != nil {
+		return Resultado{}, err
+	}
 	largo, err := c.obtenerLargo()
 	if err != nil {
-		panic("No se encontró un largo válido en el código especificado")
+		return Resultado{}, err
 	}
-	valor := c.obtenerValor(largo)
-	return Resultado{tipo, largo, valor}
+	valor, err := c.obtenerValor(largo)
+	if err != nil {
+		return Resultado{}, err
+	}
+	return Resultado{tipo, largo, valor}, nil
 }
 
 /*
@@ -64,9 +70,12 @@ func (c *codigo) contieneCaracteresValidos() (bool, error) {
 /*
  * obtenerTipo retorna los 2 primeros caracteres de la secuencia de código dado que representan el tipo del código resultante
  */
-func (c *codigo) obtenerTipo() string {
+func (c *codigo) obtenerTipo() (string, error) {
 	fin := c.largoTipo
-	return c.contenido[:fin]
+	if len(c.contenido) < fin {
+		return "", errors.New("El código ingresado no tiene la longitud requerida")
+	}
+	return c.contenido[:fin], nil
 }
 
 /*
@@ -75,6 +84,9 @@ func (c *codigo) obtenerTipo() string {
 func (c *codigo) obtenerLargo() (int, error) {
 	inicio := c.largoTipo
 	fin := c.largoTipo + c.largoValor
+	if len(c.contenido) < fin {
+		return 0, errors.New("El código ingresado no tiene la longitud requerida")
+	}
 	largo := c.contenido[inicio:fin]
 	sv, err := strconv.Atoi(largo)
 	return sv, err
@@ -83,8 +95,11 @@ func (c *codigo) obtenerLargo() (int, error) {
 /*
  * obtenerValor retorna el contenido de los siguientes n caracteres del representativo al largo que representa el código resultante
  */
-func (c *codigo) obtenerValor(cantidad int) string {
+func (c *codigo) obtenerValor(cantidad int) (string, error) {
 	inicio := c.largoTipo + c.largoValor
 	fin := c.largoTipo + c.largoValor + cantidad
-	return c.contenido[inicio:fin]
+	if len(c.contenido) < fin {
+		return "", errors.New("El código ingresado no tiene la longitud requerida")
+	}
+	return c.contenido[inicio:fin], nil
 }
