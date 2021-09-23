@@ -6,7 +6,7 @@ El ejercicio requería que se ingrese un código en string del cual hay que saca
 - 2 primeros caracteres para el tipo
 - 2 siguientes caracteres para el largo del código
 - n siguientes caracteres, a partir del largo, para el código resultante
-- debe revisarse que el valor cumpla con el tipo dado, por ejemplo para TX el valor debe ser numérico y para NN el valor debe ser alfabético
+- debe revisarse que el valor cumpla con el tipo dado, por ejemplo para TX el valor debe ser alfabético y para NN el valor debe ser numérico
 
 Por ejemplo:
 
@@ -30,7 +30,7 @@ Las funciones existentes en el módulo son las siguientes:
 - `Formatear(contenido string)` : obtiene los elementos del tipo `Resultado` uno por uno a través de funciones privadas y verifica errores. Es público ya que necesita ser llamado desde afuera
 - `contieneCaracteresValidos(cadena, caracteres string)` : verifica que los caracteres que se hayan ingresado entén entre los válidos (números del 0 al 9 y letras mayúsculas, según sea el caso). Es privada ya que la funcion que lo utiliza está en el módulo
 - `obtenerTipo(contenido string)` : devuelve el tipo correspondiente al tipo del código, si es correcto. Es privada ya que la funcion que lo utiliza está en el módulo
-- `obtenerLargo(tipo CodigoTipo, contenido string)` : decodigovuelve la cantidad de caracteres que deberá tener el código, si es correcto. Es privada ya que la funcion que lo utiliza está en el módulo
+- `obtenerLargo(tipo CodigoTipo, contenido string)` : devuelve la cantidad de caracteres que deberá tener el código, si es correcto. Es privada ya que la funcion que lo utiliza está en el módulo
 - `obtenerValor(contenido string, cantidad int, tipo CodigoTipo)` : recibe la cantidad de caracteres que deberá tener el valor del código resultante y lo devuelve, si es correcto. Es privada ya que la funcion que lo utiliza está en el módulo
 
 En cada una de las funciones privadas específicas de obtención se accede a los sectores del string pasandole los índices de inicio y fin para cada sección, se verifica que no se quiera obtener algo que sobrepase el límite del tamaño del código dado y que cumpla con características del mismo (como el tipo y que los valores correspondan a este)
