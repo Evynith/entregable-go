@@ -18,11 +18,15 @@ func main() {
 	//codigoResultante, err := encriptador.Formatear("TX02AB")
 	//codigoResultante, err := encriptador.Formatear("TX06ABCDE")
 	//codigoResultante, err := encriptador.Formatear("NN04000A")
-	codigoResultante, err := encriptador.Formatear("NN040001")
+	fmt.Println("Ingrese una cadena de texto para formatear")
+	var entrada string
+	fmt.Scanln(&entrada)
+	fmt.Printf("Su cadena de texto ingresado es: %s", entrada)
+	codigoResultante, err := encriptador.Formatear(entrada)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(codigoResultante)
+	fmt.Println("\nEl código resultante es : ", codigoResultante)
 
 }
 

@@ -2,7 +2,6 @@ package codigo
 
 import (
 	"errors"
-	"fmt"
 	"regexp"
 	"strconv"
 	"strings"
@@ -125,7 +124,6 @@ func (c *codigo) obtenerLargo(tipo CodigoTipo, contenido string) (int, error) {
 func (c *codigo) obtenerValor(contenido string, cantidad int, tipo CodigoTipo) (string, error) {
 	inicio := tipo.extension + c.largoValor
 	fin := inicio + cantidad
-	fmt.Println(cantidad, inicio, fin)
 	if len(contenido) < fin {
 		return "", errors.New("El código ingresado no tiene la longitud requerida")
 	}
