@@ -33,3 +33,5 @@ func TestFormatear(t *testing.T) {
 }
 
 // go test ./... -count=1 -cover
+// go test ./... -coverprofile=out.test
+// go tool cover -html=out.test -o out.html
