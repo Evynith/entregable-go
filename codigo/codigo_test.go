@@ -19,8 +19,12 @@ func TestFormatear(t *testing.T) {
 		{"TX06ABCDE", false, "", "", 0},
 		{"NN04000A", false, "", "", 0},
 	}
-
-	encriptador := NuevoCodigo(2, 2, "NN", "TX")
+	codigoTipo1 := NuevoTipo("numerico", "NN", `^[0-9]+$`, 2)
+	codigoTipo2 := NuevoTipo("alfabetico", "TX", `^[A-Z]+$`, 2)
+	codTipos := make([]CodigoTipo, 0)
+	codTipos = append(codTipos, codigoTipo1)
+	codTipos = append(codTipos, codigoTipo2)
+	encriptador := NuevoCodigo(2, codTipos)
 
 	for _, testData := range cases {
 		_, err := encriptador.Formatear(testData.Input)

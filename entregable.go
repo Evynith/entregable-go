@@ -6,7 +6,12 @@ import (
 )
 
 func main() {
-	encriptador := codigo.NuevoCodigo(2, 2, "NN", "TX")
+	codigoTipo1 := codigo.NuevoTipo("numerico", "NN", `^[0-9]+$`, 2)
+	codigoTipo2 := codigo.NuevoTipo("alfabetico", "TX", `^[A-Z]+$`, 2)
+	codTipos := make([]codigo.CodigoTipo, 0)
+	codTipos = append(codTipos, codigoTipo1)
+	codTipos = append(codTipos, codigoTipo2)
+	encriptador := codigo.NuevoCodigo(2, codTipos)
 	//codigoResultante, err := encriptador.Formatear("NN040001")
 	//codigoResultante, err := encriptador.Formatear("TX03ABC")
 	//codigoResultante, err := encriptador.Formatear("NN100987654321")
