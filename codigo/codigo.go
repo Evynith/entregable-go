@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"regexp"
 	"strconv"
+	"strings"
 )
 
 type Resultado struct {
@@ -37,7 +38,8 @@ func (c *codigo) Imprimir() {
  * Formatear en caso de ser un string válido le dá un formato definido y lo devuelve
  */
 func (c *codigo) Formatear() (Resultado, error) {
-	if valido, err := c.contieneCaracteresValidos(); err != nil || valido == false {
+	caracteresValidos := `^[A-Z0-9]+$`
+	if valido, err := contieneCaracteresValidos(c.contenido, caracteresValidos); err != nil || valido == false {
 		return Resultado{}, err
 	}
 	tipo, err := c.obtenerTipo()
@@ -48,7 +50,12 @@ func (c *codigo) Formatear() (Resultado, error) {
 	if err != nil {
 		return Resultado{}, err
 	}
-	valor, err := c.obtenerValor(largo)
+	if tipo == "NN" {
+		caracteresValidos = `^[0-9]+$`
+	} else { //tipo TX
+		caracteresValidos = `^[A-Z]+$`
+	}
+	valor, err := c.obtenerValor(largo, caracteresValidos)
 	if err != nil {
 		return Resultado{}, err
 	}
@@ -58,9 +65,9 @@ func (c *codigo) Formatear() (Resultado, error) {
 /*
  * contieneCaracteresValidos verifica que el string contenga caracteres válidos
  */
-func (c *codigo) contieneCaracteresValidos() (bool, error) {
-	caracteresValidos := regexp.MustCompile(`^[A-Z0-9]+$`) //suponiendo que deba tener sólo mayúsculas
-	resultadoComparacion := caracteresValidos.MatchString(c.contenido)
+func contieneCaracteresValidos(cadena, caracteres string) (bool, error) {
+	caracteresValidos := regexp.MustCompile(caracteres) //suponiendo que deba tener sólo mayúsculas
+	resultadoComparacion := caracteresValidos.MatchString(cadena)
 	if resultadoComparacion == false {
 		return false, errors.New("El código ingresado no es válido")
 	}
@@ -75,7 +82,11 @@ func (c *codigo) obtenerTipo() (string, error) {
 	if len(c.contenido) < fin {
 		return "", errors.New("El código ingresado no tiene la longitud requerida")
 	}
-	return c.contenido[:fin], nil
+	tipo := c.contenido[:fin]
+	if strings.Compare(tipo, "NN") != 0 && strings.Compare(tipo, "TX") != 0 {
+		return "", errors.New("El codigo ingresado no contiene un tipo válido")
+	}
+	return tipo, nil
 }
 
 /*
@@ -95,11 +106,15 @@ func (c *codigo) obtenerLargo() (int, error) {
 /*
  * obtenerValor retorna el contenido de los siguientes n caracteres del representativo al largo que representa el código resultante
  */
-func (c *codigo) obtenerValor(cantidad int) (string, error) {
+func (c *codigo) obtenerValor(cantidad int, caracteresValidos string) (string, error) {
 	inicio := c.largoTipo + c.largoValor
 	fin := c.largoTipo + c.largoValor + cantidad
 	if len(c.contenido) < fin {
 		return "", errors.New("El código ingresado no tiene la longitud requerida")
 	}
-	return c.contenido[inicio:fin], nil
+	valor := c.contenido[inicio:fin]
+	if resultado, err := contieneCaracteresValidos(valor, caracteresValidos); resultado == false || err != nil {
+		return "", errors.New("El código ingresado no contiene el formato requerido")
+	}
+	return valor, nil
 }
