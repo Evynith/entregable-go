@@ -20,11 +20,12 @@ func TestFormatear(t *testing.T) {
 		{"NN04000A", false, "", "", 0},
 	}
 
+	encriptador := NuevoCodigo(2, 2, "NN", "TX")
+
 	for _, testData := range cases {
-		codigo := NuevoCodigo(testData.Input)
-		_, err := codigo.Formatear()
+		_, err := encriptador.Formatear(testData.Input)
 		assert.Equal(t, err == nil, testData.Success)
 	}
 }
 
-// go test ./... -count=1
+// go test ./... -count=1 -cover

@@ -6,16 +6,14 @@ import (
 )
 
 func main() {
-
-	//codigo := codigo.NuevoCodigo("NN040001")
-	//codigo := codigo.NuevoCodigo("TX03ABC")
-	//codigo := codigo.NuevoCodigo("NN100987654321")
-	//codigo := codigo.NuevoCodigo("TX02AB")
-	//codigo := codigo.NuevoCodigo("TX06ABCDE")
-	codigo := codigo.NuevoCodigo("NN04000A")
-	//codigo := codigo.NuevoCodigo("NN040001")
-	codigo.Imprimir()
-	codigoResultante, err := codigo.Formatear()
+	encriptador := codigo.NuevoCodigo(2, 2, "NN", "TX")
+	//codigoResultante, err := encriptador.Formatear("NN040001")
+	//codigoResultante, err := encriptador.Formatear("TX03ABC")
+	//codigoResultante, err := encriptador.Formatear("NN100987654321")
+	//codigoResultante, err := encriptador.Formatear("TX02AB")
+	//codigoResultante, err := encriptador.Formatear("TX06ABCDE")
+	//codigoResultante, err := encriptador.Formatear("NN04000A")
+	codigoResultante, err := encriptador.Formatear("NN040001")
 	if err != nil {
 		panic(err)
 	}
